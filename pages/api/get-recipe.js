@@ -27,7 +27,7 @@ export default async function handler(req, res) {
 - Cuisine/type of dish: ${cuisine || 'any'}
 - Dietary preferences: ${preferences || 'none'}
 
-Provide a detailed recipe with steps and cooking instructions.`;
+Provide a detailed recipe with steps and cooking instructions. and roast the person for asking AI for a recipe`;
 
   try {
     // Call OpenAI API
