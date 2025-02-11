@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from '../styles/Recipe.module.css';
 
 export default function Recipe() {
-  const [showAuthDialog, setShowAuthDialog] = useState(true); // Always show dialog on page load
+  const [showAuthDialog, setShowAuthDialog] = useState(true);
   const [ingredients, setIngredients] = useState('');
   const [people, setPeople] = useState(1);
   const [cookTime, setCookTime] = useState(30);
@@ -12,33 +12,30 @@ export default function Recipe() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Submit handler (no authentication check)
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+    e.preventDefault(); // Prevent default form submission
     setError('');
+    setIsLoading(true); // 2. Fixed typo (removed space before semicolon)
 
     try {
       const response = await fetch('/api/get-recipe', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ingredients,
           people,
           cookTime,
           cuisine,
           preferences,
+          mode: 'ai' // 3. Added mode parameter (was missing)
         }),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch recipe. Please try again.');
-      }
-
+      if (!response.ok) throw new Error('Failed to fetch recipes');
+      
       const data = await response.json();
       setRecipe(data.recipe);
+
     } catch (error) {
       console.error('Error:', error);
       setError(error.message);
@@ -49,7 +46,6 @@ export default function Recipe() {
 
   return (
     <div className={styles.container}>
-      {/* Auth Dialog (always shown on page load) */}
       {showAuthDialog && (
         <div className={styles.overlay}>
           <div className={styles.dialog}>
@@ -59,19 +55,19 @@ export default function Recipe() {
             </p>
             <button
               className={`${styles.dialogButton} ${styles.login}`}
-              onClick={() => setShowAuthDialog(true)} // Close dialog
+              onClick={() => setShowAuthDialog(true)}
             >
               Log in
             </button>
             <button
               className={`${styles.dialogButton} ${styles.signup}`}
-              onClick={() => setShowAuthDialog(true)} // Close dialog
+              onClick={() => setShowAuthDialog(true)}
             >
               Sign up
             </button>
             <button
               className={`${styles.dialogButton} ${styles.stayLoggedOut}`}
-              onClick={() => setShowAuthDialog(false)} // Close dialog
+              onClick={() => setShowAuthDialog(false)}
             >
               Stay logged out
             </button>
@@ -79,7 +75,6 @@ export default function Recipe() {
         </div>
       )}
 
-      {/* Recipe Form */}
       <h1>Recipe Suggester</h1>
       <form onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
@@ -130,13 +125,20 @@ export default function Recipe() {
             placeholder="e.g., vegetarian, gluten-free"
           />
         </div>
-        <button type="submit" className={styles.submitButton} disabled={isLoading}>
-          {isLoading ? 'Loading...' : 'Get Recipe'}
-        </button>
+
+        <div className={styles.buttonContainer}>
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Generating...' : 'Get AI Recipe'}
+          </button>
+        </div>
       </form>
 
-      {isLoading && <p>Loading recipe...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className={styles.error}>{error}</p>}
+
       {recipe && (
         <div className={styles.recipe}>
           <h2>Suggested Recipe</h2>

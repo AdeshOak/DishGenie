@@ -93,3 +93,59 @@
   background-color: #f44336;
   color: white;
 }
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.webButton {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.recipeContent {
+  background: #f8f8f8;
+  padding: 1.5rem;
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+.webResults {
+  margin-top: 2rem;
+}
+
+.recipeGrid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.recipeCard {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.recipeLink {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.recipeLink:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: #dc3545;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  background: #ffe6e6;
+  border-radius: 4px;
+}
