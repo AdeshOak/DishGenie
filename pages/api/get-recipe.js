@@ -38,7 +38,8 @@ Provide a detailed recipe with steps and cooking instructions. Make sure to come
 with unique recipes without using additional ingredients apart from the ones mentioned
 (except for staples like oil, sugar, salt, spices etc..) but if there are some ingredients
 that are present in the recipe that you suggest and the user hasn't entered those, start 
-off with warning them about the extra ingredients that will be required in the recipe.
+off with warning them about the extra ingredients that will be required in the recipe. Try to 
+give the easiest recipe that matches the parameters most closely.
 
 End the suggestions with a unique tip related to that recipe.`;
     
